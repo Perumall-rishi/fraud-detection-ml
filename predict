@@ -1,0 +1,60 @@
+import joblib
+import pandas as pd
+
+# Load model
+
+model = joblib.load("../models/fraud_pipeline.pkl")
+
+def predict_fraud(sample: dict):
+input_df = pd.DataFrame([sample])
+
+```
+prediction = model.predict(input_df)[0]
+probability = model.predict_proba(input_df)[0][1]
+
+result = "Fraud" if prediction == 1 else "Not Fraud"
+
+return result, probability
+```
+
+# Example usage
+
+if **name** == "**main**":
+sample = {
+'Month': 'Jan',
+'WeekOfMonth': 2,
+'DayOfWeek': 'Monday',
+'Make': 'Honda',
+'AccidentArea': 'Urban',
+'DayOfWeekClaimed': 'Tuesday',
+'MonthClaimed': 'Jan',
+'WeekOfMonthClaimed': 2,
+'Sex': 'Male',
+'MaritalStatus': 'Single',
+'Age': 30,
+'Fault': 'Policy Holder',
+'PolicyType': 'Sedan - All Perils',
+'VehicleCategory': 'Sedan',
+'VehiclePrice': '20000 to 29000',
+'Deductible': 400,
+'DriverRating': 3,
+'Days:Policy-Accident': 'more than 30',
+'Days:Policy-Claim': 'more than 30',
+'PastNumberOfClaims': 'none',
+'AgeOfVehicle': '3 years',
+'AgeOfPolicyHolder': '26 to 30',
+'PoliceReportFiled': 'No',
+'WitnessPresent': 'No',
+'AgentType': 'External',
+'NumberOfSuppliments': 'none',
+'AddressChange-Claim': 'no change',
+'NumberOfCars': '1 vehicle',
+'Year': 1994,
+'BasePolicy': 'All Perils'
+}
+
+```
+result, prob = predict_fraud(sample)
+print(f"Prediction: {result}")
+print(f"Fraud Probability: {prob:.2f}")
+```
